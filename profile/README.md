@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <em>The on‑chain internet — open standards, tools, and research for Hedera Consensus Service (HCS).</em>
+  <em>The on‑chain internet — open standards, tools, and research for Hashgraph Consensus Standards (hcs) .</em>
 </p>
 
 <p align="center">
