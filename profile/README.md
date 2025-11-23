@@ -1,7 +1,7 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://hashgraphonline.com/Logo_Whole.png">
-    <img alt="Hashgraph Online" src="https://hashgraphonline.com/Logo_Whole_Dark.png" width="520">
+    <source media="(prefers-color-scheme: dark)" srcset="https://hol.org/Logo_Whole.png">
+    <img alt="Hashgraph Online" src="https://hol.org/Logo_Whole_Dark.png" width="520">
   </picture>
 </p>
 
@@ -10,8 +10,8 @@
 </p>
 
 <p align="center">
-  <a href="https://hashgraphonline.com"><img alt="Website" src="https://img.shields.io/badge/Website-hashgraphonline.com-3f4174.svg?logo=google-chrome&logoColor=white"></a>
-  <a href="https://hashgraphonline.com/docs/standards"><img alt="Docs" src="https://img.shields.io/badge/Docs-HCS%20Standards-5599fe.svg"></a>
+  <a href="https://hol.org"><img alt="Website" src="https://img.shields.io/badge/Website-hol.org-3f4174.svg?logo=google-chrome&logoColor=white"></a>
+  <a href="https://hol.org/docs/standards"><img alt="Docs" src="https://img.shields.io/badge/Docs-HCS%20Standards-5599fe.svg"></a>
   <a href="https://www.npmjs.com/package/@hashgraphonline/standards-sdk"><img alt="NPM" src="https://img.shields.io/npm/v/@hashgraphonline/standards-sdk.svg"></a>
   <a href="https://x.com/HashgraphOnline"><img alt="X (Twitter) Follow" src="https://img.shields.io/badge/Follow-@HashgraphOnline-3f4174.svg?logo=x"></a>
   <a href="https://t.me/hashinals"><img alt="Telegram" src="https://img.shields.io/badge/Telegram-Join-5599fe.svg?logo=telegram"></a>
@@ -35,7 +35,7 @@ We author open **Hashgraph Consensus Standards (HCS)**, ship production‑grade 
 npm i @hashgraphonline/standards-sdk
 
 # Docs
-# → https://hashgraphonline.com/docs/standards
+# → https://hol.org/docs/standards
 ````
 
 ---
@@ -56,7 +56,7 @@ Selected HCS specs used across the ecosystem:
 * **HCS‑13** (Schema Registry)
 * **HCS‑20** (Auditable Points)
 
-Browse all standards → **[https://hashgraphonline.com/docs/standards](https://hashgraphonline.com/docs/standards)**
+Browse all standards → **[https://hol.org/docs/standards](https://hol.org/docs/standards)**
 
 ---
 
@@ -83,8 +83,8 @@ Browse all standards → **[https://hashgraphonline.com/docs/standards](https://
 
 * **Telegram:** [https://t.me/hashinals](https://t.me/hashinals)
 * **X (Twitter):** [https://x.com/HashgraphOnline](https://x.com/HashgraphOnline)
-* **Brand kit (logos/colors):** [https://hashgraphonline.com/brand](https://hashgraphonline.com/brand)
-* **Blog & updates:** [https://hashgraphonline.com/blog](https://hashgraphonline.com/blog)
+* **Brand kit (logos/colors):** [https://hol.org/brand](https://hol.org/brand)
+* **Blog & updates:** [https://hol.org/blog](https://hol.org/blog)
 
 ---
 
