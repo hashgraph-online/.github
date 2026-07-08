@@ -31,26 +31,58 @@ HOL standards are developed in the open through the HCS process and use Hedera C
 
 ---
 
-## Quick start
+## HOL Guard — AI antivirus for developer agents
+
+[**HOL Guard**](https://github.com/hashgraph-online/hol-guard) is an AI security layer that scans plugins, MCP servers, skills, and agent tooling before tools run. It protects Codex, Claude Code, Cursor, Gemini, OpenCode, and other AI harnesses from malicious or risky code.
+
+- **Scan plugins** before install — detect prompt injection, data exfiltration, and unsafe file access
+- **Verify MCP servers** against a registry of known-safe tools
+- **Lint agent skills** for compliance with HOL trust and privacy standards
+- **Publish readiness** — plugins that pass HOL Guard scans earn a verification badge in the [plugin registry](https://hol.org/registry/plugins)
+
+```bash
+# Install HOL Guard
+pip install hol-guard
+
+# Scan a plugin or MCP server
+hol-guard scan ./my-plugin
+
+# Verify a published plugin
+hol-guard verify --plugin my-plugin-slug
+```
+
+[Learn more →](https://github.com/hashgraph-online/hol-guard)
+
+---
+
+## Standards SDK
+
+The [`@hashgraphonline/standards-sdk`](https://www.npmjs.com/package/@hashgraphonline/standards-sdk) provides TypeScript libraries for HCS standards — agent identity, registries, communication, and more.
 
 ```bash
 npm install @hashgraphonline/standards-sdk
 ```
 
 ```typescript
-import { StandardsSDK } from '@hashgraphonline/standards-sdk';
-
-const sdk = new StandardsSDK({
-  network: 'mainnet',
-  accountId: process.env.HEDERA_ACCOUNT_ID!,
-  privateKey: process.env.HEDERA_PRIVATE_KEY!,
-});
+import { HCS14Client, HCS11Client } from '@hashgraphonline/standards-sdk';
 
 // Resolve a Universal Agent ID (HCS-14)
-const profile = await sdk.hcs14.resolve('uaid:hiero:mainnet:0.0.12345');
+const hcs14 = new HCS14Client({
+  network: 'mainnet',
+  operatorId: process.env.HEDERA_ACCOUNT_ID!,
+  privateKey: process.env.HEDERA_PRIVATE_KEY!,
+});
+const profile = await hcs14.resolveUaidProfile('uaid:hiero:mainnet:0.0.12345');
 
-// Register an agent profile (HCS-11)
-await sdk.hcs11.createAgentProfile({
+// Create an agent profile (HCS-11)
+const hcs11 = new HCS11Client({
+  network: 'mainnet',
+  auth: {
+    operatorId: process.env.HEDERA_ACCOUNT_ID!,
+    privateKey: process.env.HEDERA_PRIVATE_KEY!,
+  },
+});
+const result = await hcs11.createAndInscribeProfile({
   name: 'My Agent',
   bio: 'An AI assistant for developer workflows.',
 });
@@ -64,14 +96,14 @@ Browse the SDK docs → **[https://hol.org/docs](https://hol.org/docs)**
 
 | Asset | What it does |
 |---|---|
-| **Universal Agentic Registry** | Search and discover registered agents, MCP servers, skills, and tools |
-| **Registry Broker** | Route requests across registries and protocols with adapter-based discovery |
-| **Standards SDK** | TypeScript SDK implementing HCS standards for agents, identity, registries, and communication |
-| **Universal Agent IDs (HCS-14)** | Portable, cross-protocol agent identifiers resolvable via DID, CAIP-10, and base58 |
-| **OpenConvAI (HCS-10)** | Agent-to-agent communication protocol with connections, messages, and registries |
-| **Agent Profiles (HCS-11)** | Agent/service metadata: capabilities, endpoints, avatar, and bio |
-| **Skills & Plugins** | Plugin registry for Codex and other agent platforms ([awesome-codex-plugins](https://github.com/hashgraph-online/awesome-codex-plugins)) |
-| **Trust & Provenance** | Verification signals, attestations, and audit trails anchored to consensus |
+| [Universal Agentic Registry](https://hol.org/registry) | Discover agents, MCP servers, skills, and plugins across protocols |
+| [Registry Broker](https://github.com/hashgraph-online/registry-broker) | Route agent discovery queries across registries and protocols |
+| [Standards SDK](https://github.com/hashgraph-online/standards-sdk) | TypeScript libraries for HCS standards — identity, registries, communication |
+| [HOL Guard](https://github.com/hashgraph-online/hol-guard) | AI antivirus — scan and verify plugins, MCP servers, and skills before tools run |
+| Universal Agent IDs / HCS-14 | Portable, cross-protocol agent identifiers with DNS and DID proofs |
+| OpenConvAI / HCS-10 | Agent communication standard for messaging and presence |
+| Agent Profiles / HCS-11 | Metadata, capabilities, and service discovery for agents |
+| Skills & Verification | Plugin scanning, trust signals, and attestation infrastructure |
 
 ---
 
@@ -83,7 +115,7 @@ Browse the SDK docs → **[https://hol.org/docs](https://hol.org/docs)**
 | Agent identity | HCS-11 profiles, HCS-14 UAIDs, DNS/domain proofs |
 | Communication | HCS-10/OpenConvAI, adapter-based routing for A2A and XMTP |
 | Tooling | MCP servers, skills, plugins, SDK integrations |
-| Trust and provenance | Verification signals, attestations, audit trails |
+| Trust and provenance | HOL Guard scanning, verification signals, attestations, audit trails |
 | Payments and intents | Agent commerce/payment metadata, working group exploration |
 | Privacy and governance | Enterprise audit patterns, privacy working group |
 
@@ -100,13 +132,13 @@ AI-agent infrastructure standards, prioritized:
 | **HCS-10** | OpenConvAI — agent communication | Published |
 | **HCS-11** | Profiles — agent/service metadata | Published |
 | **HCS-14** | Universal Agent IDs — portable agent identifiers | Published |
-| **HCS-21** | Agentic Data Registries — discovery/capability attestations | Published |
-| **HCS-26** | Skills — skill manifests and discovery | Published |
 | **HCS-2** | Discovery Registries | Published |
-| **HCS-20** | Auditable Points — transparent incentives | Published |
-| **HCS-12** | Action Registry | Published |
+| **HCS-20** | Auditable Points — transparent incentives/rewards | Published |
+| **HCS-21** | Agentic Data Registries — discovery/capability attestations | Published |
+| **HCS-1** | File Storage & Retrieval | Published |
+| **HCS-3** | Resource Linking & Recursion | Published |
 
-Browse all standards → **[https://hol.org/docs/standards](https://hol.org/docs/standards)**
+Full standards catalog → **[https://hol.org/docs/standards](https://hol.org/docs/standards)**
 
 ---
 
@@ -115,32 +147,21 @@ Browse all standards → **[https://hol.org/docs/standards](https://hol.org/docs
 | If you want to... | Start here |
 |---|---|
 | Search or register agents | [Universal Agentic Registry](https://hol.org/registry) |
+| Scan a plugin for safety | [HOL Guard CLI](https://github.com/hashgraph-online/hol-guard) |
 | Build with HOL standards | [Standards SDK](https://github.com/hashgraph-online/standards-sdk) |
 | Add discovery to an assistant | [Registry Broker](https://github.com/hashgraph-online/registry-broker) |
-| Build HCS-10 agents | [Standards SDK HCS-10 demos](https://github.com/hashgraph-online/standards-sdk/tree/main/demo) |
+| Build HCS-10 agents | Standards SDK HCS-10 modules |
 | Propose a standard | [hcs-improvement-proposals](https://github.com/hashgraph-online/hcs-improvement-proposals) |
-| Explore agent identity | [HCS-14 demo](https://github.com/hashgraph-online/standards-sdk/tree/main/demo/hcs-14) |
-| Browse Codex plugins | [awesome-codex-plugins](https://github.com/hashgraph-online/awesome-codex-plugins) |
-
----
-
-## Ecosystem & tools
-
-* **Standards & Site** — [`hcs-improvement-proposals`](https://github.com/hashgraph-online/hcs-improvement-proposals): canonical specs & docs
-* **Standards SDK** — [`standards-sdk`](https://github.com/hashgraph-online/standards-sdk): TypeScript SDK for HCS standards
-* **Registry Broker** — [`registry-broker`](https://github.com/hashgraph-online/registry-broker): cross-registry discovery and routing
-* **Agent Kit** — [`standards-agent-kit`](https://github.com/hashgraph-online/standards-agent-kit): utilities for OpenConvAI/agent apps
-* **Codex Plugins** — [`awesome-codex-plugins`](https://github.com/hashgraph-online/awesome-codex-plugins): community plugin registry
-* **Desktop (reference app)** — [`desktop`](https://github.com/hashgraph-online/desktop): UI to explore and interact with agents
+| Explore examples | [Quickstarts and demos](https://hol.org/docs) |
 
 ---
 
 ## Contribute
 
-* **Propose or review a standard** — open a discussion/PR in [`hcs-improvement-proposals`](https://github.com/hashgraph-online/hcs-improvement-proposals)
-* **Add protocol adapters** — contribute to the [Registry Broker](https://github.com/hashgraph-online/registry-broker)
-* **Publish agents, skills, or MCP servers** — register via the [Standards SDK](https://github.com/hashgraph-online/standards-sdk)
-* **Improve SDK examples** — PRs welcome in [`standards-sdk`](https://github.com/hashgraph-online/standards-sdk)
+* **Propose or review a standard** — open issues and PRs in [hcs-improvement-proposals](https://github.com/hashgraph-online/hcs-improvement-proposals)
+* **Build protocol adapters** — help extend cross-protocol routing
+* **Publish agents, skills, or MCP servers** — list them in the [registry](https://hol.org/registry)
+* **Improve SDK examples** — PRs welcome in [standards-sdk](https://github.com/hashgraph-online/standards-sdk)
 * **Contribute test vectors** — see each repo's `CONTRIBUTING.md`
 * **Open issues/PRs** — follow each repo's contribution guidelines
 
