@@ -31,27 +31,21 @@ HOL standards are developed in the open through the HCS process and use Hedera C
 
 ---
 
-## HOL Guard — AI antivirus for developer agents
+## HOL Guard — local runtime firewall for AI coding agents
 
-[**HOL Guard**](https://github.com/hashgraph-online/hol-guard) is an AI security layer that scans plugins, MCP servers, skills, and agent tooling before tools run. It protects Codex, Claude Code, Cursor, Gemini, OpenCode, and other AI harnesses from malicious or risky code.
+[**HOL Guard**](https://hol.org/guard) is local-first **runtime** control on the developer machine. It can ask or block before supported AI coding agents run shell commands, read secrets or files, change MCP servers, or install plugins and skills.
 
-- **Scan plugins** before install — detect prompt injection, data exfiltration, and unsafe file access
-- **Verify MCP servers** against a registry of known-safe tools
-- **Lint agent skills** for compliance with HOL trust and privacy standards
-- **Publish readiness** — plugins that pass HOL Guard scans earn a verification badge in the [plugin registry](https://hol.org/registry/plugins)
+It is not a cloud MCP gateway, not a catalog scanner, and not a complete prompt-injection preventer. Cursor/artifact trust is not full pre-exec on every MCP tool call.
 
 ```bash
-# Install HOL Guard
-pip install hol-guard
-
-# Scan a plugin or MCP server
-hol-guard scan ./my-plugin
-
-# Verify a published plugin
-hol-guard verify --plugin my-plugin-slug
+# https://hol.org/guard/install
+set -o pipefail; curl -fsSL https://hol.org/guard/install.sh | bash -s -- --mode install --verify
+hol-guard init
 ```
 
-[Learn more →](https://github.com/hashgraph-online/hol-guard)
+Plugin **catalog scan** is a separate tool ([`plugin-scanner`](https://github.com/hashgraph-online/hol-guard), [`ai-plugin-scanner-action`](https://github.com/hashgraph-online/ai-plugin-scanner-action)). Browse the catalog at [hol.org/plugins](https://hol.org/plugins). A scan is not a safety guarantee.
+
+[Install →](https://hol.org/guard/install) · [Source →](https://github.com/hashgraph-online/hol-guard)
 
 ---
 
@@ -99,11 +93,11 @@ Browse the SDK docs → **[https://hol.org/docs](https://hol.org/docs)**
 | [Universal Agentic Registry](https://hol.org/registry) | Discover agents, MCP servers, skills, and plugins across protocols |
 | [Registry Broker](https://github.com/hashgraph-online/registry-broker) | Route agent discovery queries across registries and protocols |
 | [Standards SDK](https://github.com/hashgraph-online/standards-sdk) | TypeScript libraries for HCS standards — identity, registries, communication |
-| [HOL Guard](https://github.com/hashgraph-online/hol-guard) | AI antivirus — scan and verify plugins, MCP servers, and skills before tools run |
+| [HOL Guard](https://hol.org/guard) | Local runtime firewall for AI coding agents — shell, secrets/file reads, MCP server change, plugin/skill install |
 | Universal Agent IDs / HCS-14 | Portable, cross-protocol agent identifiers with DNS and DID proofs |
 | OpenConvAI / HCS-10 | Agent communication standard for messaging and presence |
 | Agent Profiles / HCS-11 | Metadata, capabilities, and service discovery for agents |
-| Skills & Verification | Plugin scanning, trust signals, and attestation infrastructure |
+| Plugin catalog scan | Static checks via [plugin-scanner](https://github.com/hashgraph-online/hol-guard); browse [hol.org/plugins](https://hol.org/plugins). Scan is not a safety guarantee |
 
 ---
 
@@ -115,7 +109,7 @@ Browse the SDK docs → **[https://hol.org/docs](https://hol.org/docs)**
 | Agent identity | HCS-11 profiles, HCS-14 UAIDs, DNS/domain proofs |
 | Communication | HCS-10/OpenConvAI, adapter-based routing for A2A and XMTP |
 | Tooling | MCP servers, skills, plugins, SDK integrations |
-| Trust and provenance | HOL Guard scanning, verification signals, attestations, audit trails |
+| Trust and provenance | HOL Guard runtime control, catalog scan (not a safety guarantee), attestations, audit trails |
 | Payments and intents | Agent commerce/payment metadata, working group exploration |
 | Privacy and governance | Enterprise audit patterns, privacy working group |
 
@@ -147,7 +141,8 @@ Full standards catalog → **[https://hol.org/docs/standards](https://hol.org/do
 | If you want to... | Start here |
 |---|---|
 | Search or register agents | [Universal Agentic Registry](https://hol.org/registry) |
-| Scan a plugin for safety | [HOL Guard CLI](https://github.com/hashgraph-online/hol-guard) |
+| Add runtime protection for AI coding agents | [HOL Guard](https://hol.org/guard) |
+| Run a catalog scan (not a safety guarantee) | [Plugin catalog](https://hol.org/plugins) · [plugin-scanner](https://github.com/hashgraph-online/hol-guard) |
 | Build with HOL standards | [Standards SDK](https://github.com/hashgraph-online/standards-sdk) |
 | Add discovery to an assistant | [Registry Broker](https://github.com/hashgraph-online/registry-broker) |
 | Build HCS-10 agents | Standards SDK HCS-10 modules |
